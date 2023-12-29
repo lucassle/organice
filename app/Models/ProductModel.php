@@ -76,7 +76,7 @@ class ProductModel extends AdminModel {
         }
 
         if ($option['task'] == "shop-list-items-sale-off") {
-            $query      = $this->select('p.id', 'p.name', 'c.name as category', 'p.price', 'p.thumb', 'p.sale_off')
+            $query      = $this->select('p.id', 'p.name', 'c.name as category', 'p.price', 'p.thumb', 'p.sale_off', 'p.quantity')
                                 ->leftJoin('category_product as c', 'p.category_id', '=', 'c.id')                   
                                 ->where('p.status', '=', 'active')
                                 ->where('p.sale_off', '>', '0')
@@ -86,7 +86,7 @@ class ProductModel extends AdminModel {
         }
 
         if ($option['task'] == 'shop-list-items') {
-            $query      = $this->select('p.id', 'p.name', 'c.name as category', 'p.price', 'p.thumb', 'p.sale_off')
+            $query      = $this->select('p.id', 'p.name', 'c.name as category', 'p.price', 'p.thumb', 'p.sale_off', 'p.quantity')
                                 ->leftJoin('category_product as c', 'p.category_id', '=', 'c.id')                   
                                 ->where('p.status', '=', 'active');
                                 // ->where('p.category_id', '=', $arrParam['category_id'])
@@ -94,7 +94,7 @@ class ProductModel extends AdminModel {
         }
 
         if ($option['task'] == 'shop-list-items-in-category') {
-            $query      = $this->select('id', 'name', 'price', 'thumb', 'sale_off')     
+            $query      = $this->select('id', 'name', 'price', 'thumb', 'sale_off', 'quantity')     
                                 ->where('status', '=', 'active')
                                 ->where('category_id', '=', $arrParam['category_id']);
             $result     = $query->get()->toArray(); 

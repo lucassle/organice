@@ -131,12 +131,6 @@
                             <h6><span>{{ count($itemInCategory['product']) }}</span> Products found</h6>
                         </div>
                     </div>
-                    {{-- <div class="col-lg-4 col-md-3">
-                        <div class="filter__option">
-                            <span class="icon_grid-2x2"></span>
-                            <span class="icon_ul"></span>
-                        </div>
-                    </div> --}}
                 </div>
                 <div class="row">
                     {{-- {!! $xhtmlStore !!} --}}
@@ -149,7 +143,16 @@
                                         <ul class="product__item__pic__hover">
                                             <li><a href="#"><i class="fa fa-heart"></i></a></li>
                                             <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                                            <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
+                                            @if ($item['quantity'] != 0)
+                                                <li>
+                                                    <form action="{{ URL::linkAddToCart($item['id']) }}" method="post">
+                                                        @csrf
+                                                        <input type="hidden" name="product_id" value="{{ $item['id'] }}">
+                                                        <input type="hidden" name="quantities" value="1">
+                                                        <button type="submit"><i class="fa fa-shopping-cart"></i></button>
+                                                    </form>
+                                                </li>
+                                            @endif
                                         </ul>
                                     </div>
                                     <div class="product__discount__item__text">
@@ -165,7 +168,16 @@
                                         <ul class="product__item__pic__hover">
                                             <li><a href="#"><i class="fa fa-heart"></i></a></li>
                                             <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                                            <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
+                                            @if ($item['quantity'] != 0)
+                                                <li>
+                                                    <form action="{{ URL::linkAddToCart($item['id']) }}" method="post">
+                                                        @csrf
+                                                        <input type="hidden" name="product_id" value="{{ $item['id'] }}">
+                                                        <input type="hidden" name="quantities" value="1">
+                                                        <button type="submit"><i class="fa fa-shopping-cart"></i></button>
+                                                    </form>
+                                                </li>
+                                            @endif
                                         </ul>
                                     </div>
                                     <div class="product__item__text">

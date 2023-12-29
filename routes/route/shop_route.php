@@ -88,6 +88,14 @@ Route::group(['prefix' => $prefixFrontend, 'namespace' => 'Shop'], function () {
         Route::post('/discount',        ['as' => "$controllerName/discount",   'uses' => $controller . 'discount']);
     });
 
+    // ============================= CHECKOUT =============================
+    $prefix                 = 'checkout';
+    $controllerName         = 'checkout';
+    Route::group(['prefix' => $prefix, 'middleware' => ['permission.admin']], function () use ($controllerName) {
+        $controller         = ucfirst($controllerName) . 'Controller@';
+        Route::get('/',                 ['as' => "$controllerName",         'uses' => $controller . 'index']);
+    });
+
     // ============================= LOGIN =============================
     $prefix                 = '';
     $controllerName         = 'auth';

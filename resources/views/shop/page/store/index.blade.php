@@ -14,92 +14,6 @@
             $xhtmlCategory  .= sprintf('<li><a href="%s">%s</a></li>', $linkCategory, $value['name']);
         }
     }
-
-    if (!empty($itemSale)) {
-        foreach ($itemSale as $value) {
-            $linkProduct    = URL::linkProduct($value["id"], $value["name"]);
-            $oldPrice       = $value['price'];
-            $newPrice       = $value['price'] - ($value['price'] * $value['sale_off'] / 100);
-            $xhtmlSale      .= sprintf('<div class="col-lg-4">
-                                        <div class="product__discount__item">
-                                            <div class="product__discount__item__pic set-bg"
-                                                data-setbg="image/product/%s">
-                                                <div class="product__discount__percent">-%s</div>
-                                                <ul class="product__item__pic__hover">
-                                                    <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                                    <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                                                    <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                                                </ul>
-                                            </div>
-                                            <div class="product__discount__item__text">
-                                                <span>%s</span>
-                                                <h5><a href="%s">%s</a></h5>
-                                                <div class="product__item__price">$%s <span>$%s</span></div>
-                                            </div>
-                                        </div>
-                                    </div>', $value['thumb'], $value['sale_off'] . "%", $value['category'], $linkProduct, $value['name'], number_format($newPrice, 2, '.', ' '), $oldPrice);
-        }
-    }
-
-    if (!empty($itemProduct)) {
-        foreach ($itemProduct as $value) {
-            $_SESSION['token'] = md5(uniqid(mt_rand(), true));
-            $linkProduct    = URL::linkProduct($value["id"], $value["name"]);
-            if ($value['sale_off'] > 0) {
-                $oldPrice   = $value['price'];
-                $newPrice   = $value['price'] - ($value['price'] * 20 / 100);
-                $xhtmlStore .= sprintf('<div class="col-lg-4">
-                                            <div class="product__discount__item">
-                                                <div class="product__discount__item__pic set-bg" data-setbg="image/product/%s">
-                                                    <div class="product__discount__percent">-%s</div>
-                                                    <ul class="product__item__pic__hover">
-                                                        <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                                        <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                                                        <li>
-                                                            <form action="%s" method="post">
-                                                                <input type="hidden" name="_token" value="%s">
-                                                                <input type="hidden" name="product_id" value="%s">
-                                                                <input type="hidden" name="quantities" value="1">
-                                                                <button type="submit"><i class="fa fa-shopping-cart"></i></button>
-                                                            </form>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                                <div class="product__discount__item__text">
-                                                    <h5><a href="%s">%s</a></h5>
-                                                    <div class="product__item__price">$%s<span>$%s</span></div>
-                                                </div>
-                                            </div>
-                                        </div>', $value['thumb'], $value['sale_off'] . "%", URL::linkAddToCart($value['id']), $_SESSION['token'], $value['id'], $linkProduct, $value['name'], number_format($newPrice, 2, '.', ' '), $oldPrice);
-            } else {
-                $xhtmlStore .= sprintf('<div class="col-lg-4 col-md-6 col-sm-6">
-                                            <div class="product__item">
-                                                <div class="product__item__pic set-bg" data-setbg="image/product/%s">
-                                                    <ul class="product__item__pic__hover">
-                                                        <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                                        <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                                                        <li>
-                                                            <form action="%s" method="post">
-                                                                <input type="hidden" name="_token" value="%s">
-                                                                <input type="hidden" name="product_id" value="%s">
-                                                                <input type="hidden" name="quantities" value="1">
-                                                                <button type="submit"><i class="fa fa-shopping-cart"></i></button>
-                                                            </form>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                                <div class="product__item__text">
-                                                    <h6><a href="%s">%s</a></h6>
-                                                    <h5>$%s</h5>
-                                                </div>
-                                            </div>
-                                        </div>', $value['thumb'], URL::linkAddToCart($value['id']), $_SESSION['token'], $value['id'], $linkProduct, $value['name'], $oldPrice);
-            }  
-        }
-    } else {
-        $xhtmlStore = sprintf('<div style="margin:auto"><strong>Updating!</strong></div>');
-    }
-
     $sortByPrice    = Template::sortByPrice($controllerName, $arrParam['filter']['sort']);
 @endphp
 
@@ -205,7 +119,38 @@
                     </div>
                     <div class="row">
                         <div class="product__discount__slider owl-carousel">
-                            {!! $xhtmlSale !!}
+                            {{-- {!! $xhtmlSale !!} --}}
+                            @if (!empty($itemSale))
+                                @foreach ($itemSale as $item)
+                                    <div class="col-lg-4">
+                                        <div class="product__discount__item">
+                                            <div class="product__discount__item__pic set-bg"
+                                                data-setbg="{{ asset("image/product/" . $item['thumb']) }}">
+                                                <div class="product__discount__percent">-{{ $item['sale_off']}}%</div>
+                                                <ul class="product__item__pic__hover">
+                                                    <li><a href="#"><i class="fa fa-heart"></i></a></li>
+                                                    <li><a href="#"><i class="fa fa-retweet"></i></a></li>
+                                                    @if ($item['quantity'] != 0)
+                                                        <li>
+                                                            <form action="{{ URL::linkAddToCart($item['id']) }}" method="post">
+                                                                @csrf
+                                                                <input type="hidden" name="product_id" value="{{ $item['id'] }}">
+                                                                <input type="hidden" name="quantities" value="1">
+                                                                <button type="submit"><i class="fa fa-shopping-cart"></i></button>
+                                                            </form>
+                                                        </li>
+                                                    @endif
+                                                </ul>
+                                            </div>
+                                            <div class="product__discount__item__text">
+                                                <span>{{ $item['category'] }}</span>
+                                                <h5><a href="{{ URL::linkProduct($item["id"], $item["name"]) }}">{{ $item['name'] }}</a></h5>
+                                                <div class="product__item__price">${{ number_format($item['price'] - ($item['price'] * $item['sale_off'] / 100), 2, '.', ' ') }} <span>${{ $item['price'] }}</span></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -237,27 +182,30 @@
                 <div class="row">
                    {{-- {!! $xhtmlStore !!} --}}
                     @if (!empty($itemProduct))
-                        @foreach ($itemSale as $value)
+                        @foreach ($itemProduct as $value)
                             @if ($value['sale_off'] > 0)
                                 <div class="col-lg-4">
-                                    <div class="product__item">
-                                        <div class="product__item__pic set-bg" data-setbg="{{ asset('image/product/' . $value['thumb']) }}">
+                                    <div class="product__discount__item">
+                                        <div class="product__discount__item__pic set-bg" data-setbg="{{ asset("image/product/" . $value['thumb']) }}">
+                                            <div class="product__discount__percent">-{{ $value['sale_off'] . "%" }}</div>
                                             <ul class="product__item__pic__hover">
                                                 <li><a href="#"><i class="fa fa-heart"></i></a></li>
                                                 <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                                                <li>
-                                                    <form action="{{ URL::linkAddToCart($value['id']) }}" method="post">
-                                                        @csrf
-                                                        <input type="hidden" name="product_id" value="{{ $value['id'] }}">
-                                                        <input type="hidden" name="quantities" value="1">
-                                                        <button type="submit"><i class="fa fa-shopping-cart"></i></button>
-                                                    </form>
-                                                </li>
+                                                @if ($value['quantity'] != 0)
+                                                    <li>
+                                                        <form action="{{ URL::linkAddToCart($value['id']) }}" method="post">
+                                                            @csrf
+                                                            <input type="hidden" name="product_id" value="{{ $value['id'] }}">
+                                                            <input type="hidden" name="quantities" value="1">
+                                                            <button type="submit"><i class="fa fa-shopping-cart"></i></button>
+                                                        </form>
+                                                    </li>
+                                                @endif
                                             </ul>
                                         </div>
-                                        <div class="product__item__text">
+                                        <div class="product__discount__item__text">
                                             <h5><a href="{{ URL::linkProduct($value["id"], $value["name"]) }}">{{ $value['name'] }}</a></h5>
-                                            <div class="product__item__price">${{ number_format($value['price'] - ($value['price'] * 20 / 100), 2, '.', ' ') }} <span>${{ $value['price'] }}</span></div>
+                                            <div class="product__item__price">${{ number_format($value['price'] - ($value['price'] * $value['sale_off'] / 100), 2, '.', ' ') }}<span>${{ $value['price'] }}</span></div>
                                         </div>
                                     </div>
                                 </div>
@@ -268,14 +216,16 @@
                                             <ul class="product__item__pic__hover">
                                                 <li><a href="#"><i class="fa fa-heart"></i></a></li>
                                                 <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                                                <li>
-                                                    <form action="{{ URL::linkAddToCart($value['id']) }}" method="post">
-                                                        @csrf
-                                                        <input type="hidden" name="product_id" value="{{ $value['id'] }}">
-                                                        <input type="hidden" name="quantities" value="1">
-                                                        <button type="submit"><i class="fa fa-shopping-cart"></i></button>
-                                                    </form>
-                                                </li>
+                                                @if ($value['quantity'] != 0)
+                                                    <li>
+                                                        <form action="{{ URL::linkAddToCart($value['id']) }}" method="post">
+                                                            @csrf
+                                                            <input type="hidden" name="product_id" value="{{ $value['id'] }}">
+                                                            <input type="hidden" name="quantities" value="1">
+                                                            <button type="submit"><i class="fa fa-shopping-cart"></i></button>
+                                                        </form>
+                                                    </li>
+                                                @endif
                                             </ul>
                                         </div>
                                         <div class="product__item__text">
