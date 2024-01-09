@@ -1,6 +1,11 @@
 @php
     use Illuminate\Support\Str;
     use Gloudemans\Shoppingcart\Facades\Cart;
+    use App\Helpers\URL;
+
+    echo '<pre style="color: red;">';
+    print_r(Cart::content()->toArray());
+    echo '</pre>';
 @endphp
 
 @extends('shop.main')
@@ -63,7 +68,7 @@
                                         ${{ $item['subtotal'] }}
                                     </td>
                                     <td class="shoping__cart__item__close">
-                                        <a href=""><span class="icon_close"></span></a>
+                                        <a href="{{ URL::linkRemoveItem($item['rowId']) }}"><span class="icon_close"></span></a>
                                     </td>
                                 </tr>
                                 @endforeach
@@ -97,18 +102,6 @@
                 <div class="shoping__checkout">
                     <h5>Cart Total</h5>
                     <ul>
-                        {{-- @php
-                        $subtotal           = 0;
-                        $cart               = session('cart');
-                        if ($cart) {
-                            foreach ($cart as $key => $value) {
-                                $subtotal   = $value['total'];
-                                if (count($cart) > 1) {
-                                    $subtotal   = number_format(array_sum(array_column($cart, 'total')), 2, '.', '');
-                                }
-                            }
-                        }
-                        @endphp --}}
                         <li>Subtotal <span>${{ Cart::subtotal() }}</span></li>
                         <li>Tax <span>${{ Cart::tax() }}</span></li>
                         <li>Total <span>${{ Cart::total() }}</span></li>

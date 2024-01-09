@@ -123,21 +123,21 @@
                             @if (!empty($itemSale))
                                 @foreach ($itemSale as $item)
                                     <div class="col-lg-4">
-                                        <div class="product__discount__item">
+                                        <div class="product__discount__item" data-id={{ $item['id'] }}>
                                             <div class="product__discount__item__pic set-bg"
                                                 data-setbg="{{ asset("image/product/" . $item['thumb']) }}">
-                                                <div class="product__discount__percent">-{{ $item['sale_off']}}%</div>
+                                                <div class="product__discount__percent">-{{ $item['sale_off'] }}%</div>
                                                 <ul class="product__item__pic__hover">
                                                     <li><a href="#"><i class="fa fa-heart"></i></a></li>
                                                     <li><a href="#"><i class="fa fa-retweet"></i></a></li>
                                                     @if ($item['quantity'] != 0)
                                                         <li>
-                                                            <form action="{{ URL::linkAddToCart($item['id']) }}" method="post">
-                                                                @csrf
-                                                                <input type="hidden" name="product_id" value="{{ $item['id'] }}">
+                                                            {{-- <form action="#" method="post"> --}}
+                                                                {{-- @csrf --}}
+                                                                {{-- <input type="hidden" name="product_id" value="{{ $item['id'] }}"> --}}
                                                                 <input type="hidden" name="quantities" value="1">
-                                                                <button type="submit"><i class="fa fa-shopping-cart"></i></button>
-                                                            </form>
+                                                                <button onclick="addItemToCart({{ $item['id'] }})"><i class="fa fa-shopping-cart"></i></button>
+                                                            {{-- </form> --}}
                                                         </li>
                                                     @endif
                                                 </ul>
@@ -181,7 +181,7 @@
                 </div>
                 <div class="row">
                    {{-- {!! $xhtmlStore !!} --}}
-                    @if (!empty($itemProduct))
+                    {{-- @if (!empty($itemProduct))
                         @foreach ($itemProduct as $value)
                             @if ($value['sale_off'] > 0)
                                 <div class="col-lg-4">
@@ -238,7 +238,7 @@
                         @endforeach
                     @else
                         <div style="margin:auto"><strong>Updating!</strong></div>
-                    @endif
+                    @endif --}}
                 </div>
                 @if (count($itemProduct) > 9)
                     <div class="product__pagination">

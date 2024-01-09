@@ -1,6 +1,7 @@
 <?php
 namespace App\Helpers;
 use Illuminate\Support\Str;
+use Gloudemans\Shoppingcart\Facades\Cart;
 
 class URL {
     public static function linkCategoryProduct ($id, $name) {
@@ -19,7 +20,12 @@ class URL {
         return route('article/index', ['article_id' => $id, 'article_name' => Str::slug($name)]);
     }
 
-    public static function linkAddToCart ($id) {
-        return route('cart/order', ['id' => $id]);
-    }
+    // public static function linkAddToCart ($id) {
+    //     return route('cart/order', ['id' => $id]);
+    // }
+
+    // public static function linkRemoveItem ($rowId) {
+    //     return route('cart/remove', ['rowId' => $rowId]);
+    //     return Cart::remove($id);
+    // }
 }

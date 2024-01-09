@@ -28,7 +28,7 @@ class CartController extends Controller {
             'couponItems'       => $couponItems,
         ]);
     }
-    public function order(Request $request) {
+    public function addItem(Request $request) {
         // if ($request->method() == 'POST') {
         //     $arrParam       = $request->all();
         //     $id             = $request->id;
@@ -56,18 +56,22 @@ class CartController extends Controller {
         $arrParam       = $request->all();
         $productModel   = new ProductModel();
         $product        = $productModel->getItems($arrParam, ['task' => 'shop-get-items']);
-        // echo '<pre style="color: red;">';
-        // print_r($product);
-        // echo '</pre>';
-        // die('Function is called');
-        
-        Cart::add($product['id'],
+        Cart::add($request->input('product_id'),
                   $product['name'],
-                  $request->input('quantities'),
+                  $request->input('quantity', 1),
                   $product['price'],
                   ['thumb' => $product['thumb']]);
 
-        return redirect()->route($this->controllerName)->with('success_notify', 'Successfully!');
+        return response()->json(['success' => true]);
+    }
+
+    public function remove(Request $request)
+    {   
+        $arrParam   = $request->all();
+        // $id = $request->id();
+        // Cart::remove($id);
+        // session()->flash('success_notify', 'Item has been removed!');
+        // return redirect()->route('cart')->with('success_notify', 'Item has been removed');
     }
 
 }

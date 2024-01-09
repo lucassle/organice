@@ -3,7 +3,7 @@ html,body {
 }
 
 body.my-login-page {
-	background-color: #f7f9fb;
+	background-color: #f5fff1;
 	font-size: 14px;
 }
 
@@ -14,7 +14,7 @@ body.my-login-page {
 	/* border-radius: 50%; */
 	margin: 0 auto;
 	margin: 40px auto;
-	box-shadow: 0 0 40px rgba(0,0,0,.05);
+	box-shadow: 0 0 40px rgba(227, 255, 114, 0.05);
 }
 
 .my-login-page .brand img {
@@ -32,6 +32,8 @@ body.my-login-page {
 
 .my-login-page .card.fat {
 	padding: 10px;
+	border-radius: 5px;
+	border-color: #7fad39;
 }
 
 .my-login-page .card .card-title {
@@ -54,6 +56,11 @@ body.my-login-page {
 	margin-top: 20px;
 }
 
+.my-login-page .margin-top20 a {
+	color: #7fad39;
+	font-size: large;
+}
+
 .my-login-page .no-margin {
 	margin: 0;
 }
@@ -62,4 +69,11 @@ body.my-login-page {
 	margin: 40px 0;
 	color: #888;
 	text-align: center;
+}
+
+.btn-login {
+	color: #fff;
+	font-size: 18px;
+	background-color: #7fad39;
+	border-color: #7fad39;
 }

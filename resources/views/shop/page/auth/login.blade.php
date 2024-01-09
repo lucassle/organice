@@ -4,7 +4,7 @@
         use App\Helpers\Form as FormTemplate;
     @endphp
     <div class="brand">
-        <img src="{{ asset("shop/img/logo.png") }}">
+        <a href="{{ route("home") }}"><img src="{{ asset("shop/img/logo.png") }}"></a>
     </div>
     <div class="card fat">
         <div class="card-body">
@@ -33,7 +33,7 @@
                 </div>
 
                 <div class="form-group no-margin">
-                    <button type="submit" class="btn btn-primary btn-block">
+                    <button type="submit" class="btn btn-login btn-block">
                         Login
                     </button>
                 </div>

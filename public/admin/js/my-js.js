@@ -240,7 +240,7 @@ $(document).ready(function() {
 		startDate: $("#datepicker-coupon").data("start"),
 		endDate: $("#datepicker-coupon").data("end"),
 		locale: {
-		  	format: 'DD/MM/YYYY HH:mm:ss',
+		  	format: 'DD/MM/YYYY',
 			applyLabel: "Apply",
 			cancelLabel: "Cancel",
 			fromLabel: "From",
@@ -253,15 +253,14 @@ $(document).ready(function() {
 
 	$("#datepicker-coupon").on("apply.daterangepicker", function (ev, picker) {
 		$('[name="start_time"]').val(
-			picker.startDate.format("YYYY-MM-DD HH:mm:ss")
+			picker.startDate.format("YYYY-MM-DD")
 		);
 		$('[name="end_time"]').val(
-			picker.endDate.format("YYYY-MM-DD HH:mm:ss")
+			picker.endDate.format("YYYY-MM-DD")
 		);
 	});
 
 	$('#btn-generate-coupon-code').on('click', function () {
-		console.log(123);
 		$('[name="code"]').val(randomString(6));
 	});
 

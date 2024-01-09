@@ -35,10 +35,6 @@ class PasswordController extends AdminController {
                 'current_password'  => 'required',
                 'new_password'      => 'required|confirmed',
             ]);
-            // echo '<pre style="color: red;">';
-            // print_r(md5($request->current_password));
-            // echo '</pre>';
-            // die('Function is called');
             if (md5($request->current_password) == $password['password']) {
                 $this->model->saveItems($arrParam['id'], ['task' => 'change-password-info']);
                 return redirect()->route($this->controllerName)->with('status_notify', 'Updated successful!');

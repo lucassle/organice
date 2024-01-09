@@ -19,7 +19,7 @@
             else {
                 Mail::send([], [], function ($message) use ($mail, $data) {
                     $message->from($mail['username'], $this->fromTitle);
-                    $message->to($data['name']);
+                    $message->to($data['email']);
                     $message->subject($this->fromTitle, 'Notification of successful contact sending!');
 
                     $content    = sprintf('

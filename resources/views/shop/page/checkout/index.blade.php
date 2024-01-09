@@ -10,36 +10,34 @@
     // $inputHiddenID      = Form::hidden('id', $items['id']);
     $elements   = [
         [
-            'label'     => Form::label('first_name', 'First Name', 'col-lg-6'),
-            'element'   => Form::text('first_name', '', 'col-lg-6')
+            'label'     => Form::label('fullname', 'Full Name'),
+            'element'   => Form::text('fullname', '')
         ],
         [
-            'label'     => Form::label('content', 'Content',$formLabelAttr),
-            'element'   => Form::textArea('content', $item['content'],  $formCkeditor + ['id' => 'ckeditor'])
+            'label'     => Form::label('country', 'Country'),
+            'element'   => Form::text('country', '', ['placeholder' => 'Choose from dropdown list'])
         ],
         [
-            'label'     => Form::label('status', 'Status',          $formLabelAttr),
-            'element'   => Form::select('status', $statusValue, $item['status'], $formInputAttr)
+            'label'     => Form::label('address', 'Address'),
+            'element'   => Form::text('address', '')
         ],
         [
-            'label'     => Form::label('category_id', 'Category',          $formLabelAttr),
-            'element'   => Form::select('category_id', $node,  $item['category_id'],     $formInputAttr)
+            'label'     => Form::label('phone', 'Phone Number'),
+            'element'   => Form::text('phone', '')
         ],
         [
-            'label'     => Form::label('thumb', 'Thumb',        $formLabelAttr),
-            'element'   => Form::file('thumb',                  $formInputAttr),
-            'thumb'     => (!empty($items['id'])) ? Template::showItemThumb($controllerName, $items['thumb'], $items['name']) : null,
-            'type'      => 'thumb'
+            'label'     => Form::label('email', 'Email'),
+            'element'   => Form::text('email', '')
         ],
         [
-            'element'   => $inputHiddenID . $inputHiddenThumb . Form::submit('Save', ['class' => 'btn btn-success']),
+            'label'     => Form::label('note', 'Note'),
+            'element'   => Form::text('note', '')
+        ],
+        [
+            'element'   => $inputHiddenID . Form::submit('CHECKOUT', ['class' => 'btn btn-success']),
             'type'      => "btn-submit"
         ]
     ];
-
-    // echo '<pre style="color: red;">';
-    // print_r(route($controllerName . '/getphone'));
-    // echo '</pre>';
 @endphp
 
 @extends('shop.main')
@@ -67,18 +65,22 @@
 <!-- Checkout Section Begin -->
 <section class="checkout spad">
     <div class="container">
-        {{-- <div class="row">
-            <div class="col-lg-12">
-                <h6><span class="icon_tag_alt"></span> Have a coupon? <a href="#">Click here</a> to enter your code
-                </h6>
-            </div>
-        </div> --}}
         <div class="checkout__form">
             <h4>Billing Details</h4>
-            <form action="#" method="post">
+            @include('shop.templates.success_notify')
+            {!! Form::open([
+                'id'        => 'form1',
+                'url'       => route("$controllerName/checkout"),
+                'class'     => 'form-horizontal form-label-left',
+                'enctype'   => 'multipart/form-data'
+            ]) !!}
+                {!! FormTemplate::showCheckout($elements) !!}
+            {!! Form::close() !!}
+            {{-- <form action="#" method="post">
+                @csrf
                 <div class="row">
                     <div class="col-lg-8 col-md-6">
-                        {{-- <div class="row">
+                        <div class="row">
                             <div class="col-lg-6">
                                 <div class="checkout__input">
                                     <p>Fist Name<span>*</span></p>
@@ -138,20 +140,20 @@
                             <p>Order notes<span>*</span></p>
                             <input type="text"
                                 placeholder="Notes about your order, e.g. special notes for delivery.">
-                        </div> --}}
-                        
+                        </div>
                     </div>
+                    
                     <div class="col-lg-4 col-md-6">
                         <div class="checkout__order">
                             <h4>Your Order</h4>
                             <div class="checkout__order__products">Products <span>Total</span></div>
-                            <ul>
-                                @if (!empty(Cart::content()))
+                            @if (!empty(Cart::content()))
+                                <ul>
                                     @foreach (Cart::content()->toArray() as $item)
                                         <li>{{ $item['name'] }} x {{ $item['qty'] }}<span>${{ $item['subtotal'] }}</span></li>
                                     @endforeach
-                                @endif
-                            </ul>
+                                </ul>
+                            @endif
                             <div class="checkout__order__subtotal">Subtotal <span>${{ Cart::subtotal() }}</span></div>
                             <div class="checkout__order__tax">Tax <span>${{ Cart::tax() }}</span></div>
                             <div class="checkout__order__total">Total <span>${{ Cart::total() }}</span></div>
@@ -169,11 +171,13 @@
                                     <span class="checkmark"></span>
                                 </label>
                             </div>
-                            <button type="submit" class="site-btn">PLACE ORDER</button>
+                            @if (!empty(Cart::content()))
+                                <button type="submit" class="site-btn">PLACE ORDER</button>
+                            @endif
                         </div>
                     </div>
                 </div>
-            </form>
+            </form> --}}
         </div>
     </div>
 </section>

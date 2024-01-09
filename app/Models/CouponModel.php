@@ -111,6 +111,10 @@ class CouponModel extends AdminModel {
         }
 
         if ($option['task'] == "edit-item") {
+            echo '<pre style="color: red;">';
+            print_r($arrParam);
+            echo '</pre>';
+            die('Function is called');
             $arrParam['modified_by']    = session("userInfo")["username"];
             $arrParam['modified']       = date('Y-m-d H:i:s');
             self::where('id', $arrParam['id'])->update($this->prepareParams($arrParam));

@@ -21,16 +21,16 @@
 <!-- Laravel File Manager -->
 {{-- <script src="{{ asset('vendor/laravel-filemanager/js/script.js') }}"></script> --}}
 <script src="{{ asset('vendor/laravel-filemanager/js/stand-alone-button.js') }}"></script>
-<script src="{{ asset('vendor/laravel-filemanager/js/filemanager.js') }}"></script>
-{{-- <script src="{{ asset('vendor/laravel-filemanager/js/filemanager.min.js') }}"></script> --}}
+{{-- <script src="{{ asset('vendor/laravel-filemanager/js/filemanager.js') }}"></script> --}}
+<script src="{{ asset('vendor/laravel-filemanager/js/filemanager.min.js') }}"></script>
 <!-- Dropzone -->
 <script src="{{ asset('vendor/laravel-filemanager/js/dropzone.min.js') }}"></script>
-<!-- Date Range Picker -->
-<script src="{{ asset('admin/asset/daterangepicker-master/daterangepicker.js') }}"></script>
-<script src="{{ asset('admin/asset/daterangepicker-master/moment.min.js') }}"></script>
 <!-- Custom Theme Scripts -->
 <script src="{{ asset('admin/js/custom.min.js') }}"></script>
 <script src="{{ asset('admin/js/my-js.js') }}"></script>
+<!-- Date Range Picker -->
+<script src="{{ asset('admin/asset/daterangepicker-master/moment.min.js') }}"></script>
+<script src="{{ asset('admin/asset/daterangepicker-master/daterangepicker.js') }}"></script>
 <script>
     if ($('#ckeditor').length) {
 		var options = {

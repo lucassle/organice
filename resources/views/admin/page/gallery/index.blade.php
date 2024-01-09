@@ -6,5 +6,5 @@
         <h3>Gallery Manager</h3>
     </div>
 </div>
-<iframe src="/admin/laravel-filemanager" style="width: 100%; height: 500px; overflow: hidden; border: none;"></iframe>
+<iframe src="/laravel-filemanager" style="width: 100%; height: 500px; overflow: hidden; border: none;"></iframe>
 @endsection

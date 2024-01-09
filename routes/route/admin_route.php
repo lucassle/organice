@@ -223,9 +223,9 @@ Route::group(['prefix' => $prefixAdmin, 'namespace' => 'Admin', 'middleware' => 
     });
 
     // // ============================= FILE MANAGER =============================
-    Route::group(['prefix' => 'laravel-filemanager'], function () {
-        \UniSharp\LaravelFilemanager\Lfm::routes();
-    });
+    // Route::group(['prefix' => 'laravel-filemanager'], function () {
+    //     \UniSharp\LaravelFilemanager\Lfm::routes();
+    // });
 
     // // ============================= LOG VIEWER =============================
     $prefix                 = 'logs';

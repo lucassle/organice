@@ -15,13 +15,13 @@
 <link href="{{ asset('admin/asset/iCheck/skins/flat/green.css') }}" rel="stylesheet">
 <!-- bootstrap-progressbar -->
 <link href="{{ asset('admin/asset/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css') }}" rel="stylesheet">
-<!-- Custom Theme Style -->
-<link href="{{ asset('admin/css/custom.min.css') }}" rel="stylesheet">
-<!-- Custom Theme Style -->
-<link href="{{ asset('admin/css/mycss.css') }}" rel="stylesheet">
 <!-- Tags Input -->
 <link href="{{ asset('admin/asset/tagsinput/dist/jquery.tagsinput.min.css') }}" rel="stylesheet">
 <!-- Dropzone -->
 <link href="{{ asset('vendor/laravel-filemanager/css/dropzone.min.css') }}" rel="stylesheet">
 <!-- Date Range Picker -->
 <link href="{{ asset('admin/asset/daterangepicker-master/daterangepicker.css') }}" rel="stylesheet">
+<!-- Custom Theme Style -->
+<link href="{{ asset('admin/css/custom.min.css') }}" rel="stylesheet">
+<!-- Custom Theme Style -->
+<link href="{{ asset('admin/css/mycss.css') }}" rel="stylesheet">

@@ -21,3 +21,7 @@ use Illuminate\Support\Facades\Route;
 
 include_once 'route/admin_route.php';
 include_once 'route/shop_route.php';
+// // ============================= FILE MANAGER =============================
+Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web' => 'permission.admin']], function () {
+    \UniSharp\LaravelFilemanager\Lfm::routes();
+});

@@ -26,8 +26,8 @@
     $statusValue        = ['default'    => 'Select Status',
                            'active'     => config('return.template.status.active.name'),
                            'inactive'   => config('return.template.status.inactive.name')];
-    $startTime          = isset($items['start_time']) ? date('d/m/y H:i:s', strtotime($items['start_time'])) : date('d/m/y H:i:s');
-    $endTime            = isset($items['end_time']) ? date('d/m/y H:i:s', strtotime($items['end_time'])) : date('d/m/y H:i:s');
+    $startTime          = isset($items['start_time']) ? date('d/m/y', strtotime($items['start_time'])) : date('d/m/y');
+    $endTime            = isset($items['end_time']) ? date('d/m/y', strtotime($items['end_time'])) : date('d/m/y');
     $inputHiddenID      = Form::hidden('id', isset($items['id']) ?? '');
     $elements   = [
         [
@@ -44,9 +44,9 @@
         ],
         [
             'label'     => Form::label('datepicker-coupon', 'Available Time',  $formLabelAttr),
-            'element'   => Form::text('datepicker-coupon', $startTime . ' - ' .$endTime, $formInputAttr + ['data-start' => $startTime, 'data-end' => $endTime]) . 
-                                Form::hidden('start_time', $items['start_time'] ?? date('d/m/y H:i:s')) .
-                                Form::hidden('end_time', $items['end_time'] ?? date('d/m/y H:i:s'))
+            'element'   => Form::text('datepicker-coupon', null, $formInputAttr + ['data-start' => $startTime, 'data-end' => $endTime]) . 
+                                Form::hidden('start_time', $startTime) .
+                                Form::hidden('end_time', $endTime)
         ],
         [
             'label'     => Form::label('Price', 'Available Price',   $formLabelAttr),

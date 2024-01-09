@@ -193,15 +193,15 @@ class Template {
         // $node  = CategoryProductModel::find('id');
         switch ($controllerName) {
             case 'categoryArticle':
-                $node  = CategoryArticleModel::find('id');
+                $node  = CategoryArticleModel::find($id);
                 break;
             case 'categoryProduct':
-                $node  = CategoryProductModel::find('id');
+                $node  = CategoryProductModel::find($id);
                 break;
         }
 
-        // if (empty($node->getPrevSibling()) || empty($node->getPrevSibling()->parent_id)) $upButton = '';
-        // if (empty($node->getNextSibling())) $downButton = '';
+        if (empty($node->getPrevSibling()) || empty($node->getPrevSibling()->parent_id)) $upButton = '';
+        if (empty($node->getNextSibling())) $downButton = '';
 
         $xhtml = '
         <span style="width: 36px; display: inline-block">'.$upButton.'</span>

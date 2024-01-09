@@ -84,8 +84,9 @@ Route::group(['prefix' => $prefixFrontend, 'namespace' => 'Shop'], function () {
     Route::group(['prefix' => $prefix, 'middleware' => ['permission.admin']], function () use ($controllerName) {
         $controller         = ucfirst($controllerName) . 'Controller@';
         Route::get('/',                 ['as' => "$controllerName",         'uses' => $controller . 'index']);
-        Route::post('/add-to-cart/{id}',     ['as' => "$controllerName/order",   'uses' => $controller . 'order'])->where('id', '[0-9]+');
-        Route::post('/discount',        ['as' => "$controllerName/discount",   'uses' => $controller . 'discount']);
+        Route::get('/remove/{rowId}',   ['as' => "$controllerName/remove",  'uses' => $controller . 'remove'])->where('rowId', '[0-9]+');
+        Route::post('/addItem',     ['as' => "$controllerName/addItem", 'uses' => $controller . 'addItem']);
+        Route::post('/discount',        ['as' => "$controllerName/discount",'uses' => $controller . 'discount']);
     });
 
     // ============================= CHECKOUT =============================
@@ -93,7 +94,8 @@ Route::group(['prefix' => $prefixFrontend, 'namespace' => 'Shop'], function () {
     $controllerName         = 'checkout';
     Route::group(['prefix' => $prefix, 'middleware' => ['permission.admin']], function () use ($controllerName) {
         $controller         = ucfirst($controllerName) . 'Controller@';
-        Route::get('/',                 ['as' => "$controllerName",         'uses' => $controller . 'index']);
+        Route::get('/',                     ['as' => "$controllerName",             'uses' => $controller . 'index']);
+        Route::post('/thanks-for-shopping', ['as' => "$controllerName/checkout",    'uses' => $controller . 'checkout']);
     });
 
     // ============================= LOGIN =============================

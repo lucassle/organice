@@ -265,6 +265,18 @@
         window.open(url,"",params);
     }
 
+    $("#coupon-btn").on('click', function() {
+        var coupon_id   = $("#coupon-id").val();
+        $.ajax({
+            url: '{{ url("/cart/discount") }}',
+            data: "code=" + coupon_id,
+            success: function (response) {
+                $('#cart-total').html(response);
+            }
+        });
+    });
+
+    // Recall
     $(document).on('click', function () {
         $(".zvn-submit-phone").click(function () {
             var $elm_input  = $("input[name='phone_customer']");
@@ -313,37 +325,51 @@
     });
 
     // Ajax Change Value Quantity
-	let $inputQuantity	= $("input.quantities");
-	$inputQuantity.on("change", function () {
-		let $currentElement	= $(this);
-		let value 			= $currentElement.val();
-		var $url 			= $currentElement.data('url');
+	// $('.quantity-input').on('change', function() {
+    //     var cartItemId = $(this).data('cart-item-id');
+    //     var newQuantity = $(this).val();
 
-		$.ajax({
-            url: $url.replace('value_new', value),
-			type: "GET",
-			dataType: "JSON",
-            success: function (result) {
-				if (result) {
-					showNotify($currentElement, result.message);
-					$(".modified." + result.id).html(result.modified)
-				} else {
-					console.log(result);
-				}
-            }
-        });
-	});
-
-    $("#coupon-btn").on('click', function() {
-        var coupon_id   = $("#coupon-id").val();
-        $.ajax({
-            url: '{{ url("/cart/discount") }}',
-            data: "code=" + coupon_id,
-            success: function (response) {
-                $('#cart-total').html(response);
-            }
-        });
-    });
-
+    //     $.ajax({
+    //         type: 'PATCH',
+    //         url: '/update-cart-item',
+    //         data: {
+    //             cart_item_id: cartItemId,
+    //             quantity: newQuantity,
+    //         },
+    //         success: function(response) {
+    //             if (response.success) {
+    //                 console.log('Quantity updated successfully');
+    //                 // You can update the UI here if needed
+    //             } else {
+    //                 console.log('Failed to update quantity');
+    //             }
+    //         },
+    //         error: function(error) {
+    //             console.log('Error updating quantity', error);
+    //         }
+    //     });
+    // });
     
 })(jQuery);
+
+// Ajax Add to Cart
+function addItemToCart(productId, quantity) {
+    $.ajax({
+        type: 'POST',
+        url: '/cart/addItem',
+        data: {
+            product_id: productId ,
+            quantity: quantity,
+            _token: '{{ csrf_token() }}' // Include CSRF token
+        },
+        success: function (response) {
+            // Update the UI or perform any necessary actions
+            console.log('Item added to cart successfully');
+            alert('Item added to cart successfully!');
+        },
+        error: function (error) {
+            alert('Error adding item to cart!');
+            console.error('Error adding item to cart', error);
+        }
+    });
+}

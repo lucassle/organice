@@ -39,6 +39,7 @@ class AuthController extends Controller {
     }
 
     public function logout(Request $request) {
+        Cart::destroy();
         if ($request->session()->has('userInfo')) $request->session()->pull('userInfo');
         return redirect()->route('home');
     }

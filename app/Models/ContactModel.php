@@ -156,7 +156,7 @@ class ContactModel extends AdminModel {
 
         if ($option['task'] == "add-items") {
             $arrParam['time']           = date('Y-m-d H:i:s');
-            $arrParam['ip_address']     = $_SERVER['REMOTE_ADDR'];
+            $arrParam['ip_address']     = \Request::ip();
             $arrParam['status']         = 'active';
             self::insert($this->prepareParams($arrParam));
         }

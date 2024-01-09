@@ -2283,6 +2283,10 @@ ol {
 	margin-bottom: 24px;
 }
 
+.checkout__input label {
+	padding-left: 15px;
+}
+
 .checkout__input p {
 	color: #1c1c1c;
 	margin-bottom: 20px;

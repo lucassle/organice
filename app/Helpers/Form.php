@@ -87,4 +87,37 @@ class Form {
         }
         return $xhtml;
     }
+
+    public static function showCheckout ($elements) {
+        $xhtml  = null;
+        foreach ($elements as $element) {
+            $xhtml  .= self::formCheckout($element);
+        };
+        return $xhtml;
+    }
+
+    public static function formCheckout ($element, $arrParam = null) {
+        $type = isset($element['type']) ? $element['type'] : 'text';
+        $xhtml = null;
+
+        switch ($type) {
+            case 'text':
+                $xhtml  .= sprintf('<div class="checkout__input">
+                                        %s
+                                        <div class="col-lg-9 col-md-6">
+                                            %s
+                                        </div>
+                                    </div>', $element['label'], $element['element']);
+                break;
+            case 'btn-submit':
+                $xhtml  .= sprintf('<div class="ln_solid"></div>
+                                    <div class="form-group">
+                                        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-5">
+                                            %s
+                                        </div>
+                                    </div>', $element['element']);
+                break;
+        }
+        return $xhtml;
+    }
 }
