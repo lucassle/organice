@@ -21,8 +21,12 @@ class URL {
     }
 
     // public static function linkAddToCart ($id) {
-    //     return route('cart/order', ['id' => $id]);
+    //     return route('cart/addItem', ['id' => $id]);
     // }
+
+        public static function linkAddToCart ($id) {
+        return route('cart/addItemToCart', ['id' => $id]);
+    }
 
     // public static function linkRemoveItem ($rowId) {
     //     return route('cart/remove', ['rowId' => $rowId]);

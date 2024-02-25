@@ -181,9 +181,10 @@
                 </div>
                 <div class="row">
                    {{-- {!! $xhtmlStore !!} --}}
-                    {{-- @if (!empty($itemProduct))
+                    @if (!empty($itemProduct))
                         @foreach ($itemProduct as $value)
                             @if ($value['sale_off'] > 0)
+                                @include('shop.templates.message')
                                 <div class="col-lg-4">
                                     <div class="product__discount__item">
                                         <div class="product__discount__item__pic set-bg" data-setbg="{{ asset("image/product/" . $value['thumb']) }}">
@@ -198,6 +199,7 @@
                                                             <input type="hidden" name="product_id" value="{{ $value['id'] }}">
                                                             <input type="hidden" name="quantities" value="1">
                                                             <button type="submit"><i class="fa fa-shopping-cart"></i></button>
+                                                            {{-- <button class="add-to-cart" data-product-id="{{ $value['id'] }}"><i class="fa fa-shopping-cart"></i></button> --}}
                                                         </form>
                                                     </li>
                                                 @endif
@@ -238,7 +240,7 @@
                         @endforeach
                     @else
                         <div style="margin:auto"><strong>Updating!</strong></div>
-                    @endif --}}
+                    @endif
                 </div>
                 @if (count($itemProduct) > 9)
                     <div class="product__pagination">

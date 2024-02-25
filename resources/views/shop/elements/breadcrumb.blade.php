@@ -1,9 +1,3 @@
-@php
-    echo '<pre style="color: red;">';
-    print_r($controllerName);
-    echo '</pre>';
-@endphp
-
 <section class="breadcrumb-section set-bg" data-setbg="{{ asset('shop/img/blog/details/details-hero.jpg') }}">
     <div class="container">
         <div class="row">

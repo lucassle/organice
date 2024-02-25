@@ -104,7 +104,7 @@ class Form {
             case 'text':
                 $xhtml  .= sprintf('<div class="checkout__input">
                                         %s
-                                        <div class="col-lg-9 col-md-6">
+                                        <div class="col-lg-12 col-md-6">
                                             %s
                                         </div>
                                     </div>', $element['label'], $element['element']);
@@ -112,7 +112,7 @@ class Form {
             case 'btn-submit':
                 $xhtml  .= sprintf('<div class="ln_solid"></div>
                                     <div class="form-group">
-                                        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-5">
+                                        <div class="col-md-12 col-sm-6 col-xs-12 col-md-offset-5">
                                             %s
                                         </div>
                                     </div>', $element['element']);

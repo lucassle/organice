@@ -17,12 +17,26 @@ class RecallController extends Controller {
         view()->share('controllerName', $this->controllerName);
     }
 
-    public function index(MainRequest $request) {
-        $recallModel                    = new RecallModel();
+    public function index(Request $request) {
         
         return view($this->pathViewController . 'index', [
             // 'itemDetail'        => $itemDetail,
             // 'itemRelated'       => $itemRelated,
         ]);
+    }
+
+    public function getPhone(Request $request)
+    {
+        // Validate the request data
+        $request->validate([
+            'phoneNumber' => 'required|string',
+        ]);
+
+        // Create a new phone number instance
+        $recallModel = new RecallModel();
+        $recallModel->number = $request->phoneNumber;
+        $recallModel->save();
+
+        return response()->json(['message' => 'Phone number inserted successfully']);
     }
 }

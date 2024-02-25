@@ -43,10 +43,10 @@
                         <button type="submit" class="site-btn">Subscribe</button>
                     </form>
                     <div class="footer__widget__social">
-                        <a href="#"><i class="fa-brands fa-facebook"></i></a>
-                        <a href="#"><i class="fa-brands fa-instagram"></i></a>
-                        <a href="#"><i class="fa-brands fa-twitter"></i></a>
-                        <a href="#"><i class="fa-brands fa-pinterest"></i></a>
+                        <button class="share__link share__link--facebook"><i class="fa-brands fa-facebook"></i></button>
+                        <button class="share__link share__link--twitter"><i class="fa-brands fa-twitter"></i></button>
+                        <button class="share__link share__link--linkedin"><i class="fa-brands fa-linkedin"></i></button>
+                        <button class="share__link share__link--pinterest"><i class="fa-brands fa-pinterest-p"></i></button>
                     </div>
                 </div>
             </div>

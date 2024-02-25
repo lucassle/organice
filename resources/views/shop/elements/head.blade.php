@@ -19,3 +19,4 @@
 <link rel="stylesheet" href="{{ asset("shop/css/slicknav.min.css") }}" type="text/css">
 <link rel="stylesheet" href="{{ asset("shop/css/style.css") }}" type="text/css">
 <link rel="stylesheet" href="{{ asset("shop/css/dropdown.css") }}" type="text/css">
+<link rel="stylesheet" href="{{ asset("shop/css/dropdown.css") }}" type="text/css">

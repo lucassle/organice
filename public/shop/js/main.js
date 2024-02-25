@@ -265,6 +265,26 @@
         window.open(url,"",params);
     }
 
+    $('#phoneNumberForm').on('submit', function(event) {
+        event.preventDefault();
+        var phoneNumber = $('#phoneNumber').val();
+        $.ajax({
+            type: 'POST',
+            url: 'recall/get-phone',
+            data: { phoneNumber: phoneNumber },
+            success: function(response) {
+                // Handle the response from the server
+                alert('Phone number inserted successfully!');
+                // Optionally, you can perform additional actions here
+            },
+            error: function(xhr, status, error) {
+                // Handle errors
+                console.error(error);
+                alert('Error occurred while inserting phone number. Please try again later.');
+            }
+        });
+    });
+
     $("#coupon-btn").on('click', function() {
         var coupon_id   = $("#coupon-id").val();
         $.ajax({
@@ -275,54 +295,42 @@
             }
         });
     });
+    
+
+    // $('.add-to-cart').on('click', function () {
+    //     // event.preventDefault();
+    //     let $currentElement	= $(this);
+    //     var productId = $(this).data('product-id');
+    //     var quantity = 1; // You can adjust this based on your requirements
+
+    //     // Make an AJAX request
+    //     $.ajax({
+    //         url: 'cart/add-to-cart',
+    //         type: 'POST',
+    //         data: {
+    //             product_id: productId,
+    //             quantity: quantity
+    //         },
+    //         success: function (response) {
+    //             // alert(response.message);
+    //             console.log(response);
+    //             showNotify($currentElement, response.message);
+    //         },
+    //         error: function (error) {
+    //             console.log(error);
+    //         }
+    //     });
+    // });
 
     // Recall
-    $(document).on('click', function () {
-        $(".zvn-submit-phone").click(function () {
-            var $elm_input  = $("input[name='phone_customer']");
-            var $elm_alert  = $(".modal-body .alert");
-            var $elm_this   = $(this);
-            var phone       = $elm_input.val();
-            var route 	    = $(".zvn-submit-phone").attr('action');
-            $('<div class="loader"></div>').insertBefore($elm_input);
-            $elm_alert.remove();
-            $.ajax({
-                url: route,
-                method:"POST",
-                data:{phone:phone},
-                dataType:"json",
-                error:function(a,b){
-                    var arr_errors= a.responseJSON.errors.phone;
-                    $('.loader').remove();
-                    if(arr_errors.length > 0){
-                        var xhtml = `<div class="alert alert-danger alert-dismissible fade in" role="alert">
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
-                                    </button>`;
-                                    for (var i=0;i<arr_errors.length;i++){
-                                        xhtml += `<strong>${arr_errors[i]}</strong>`;
-                                    }
-                        xhtml += `</div>`;
-                        $(xhtml).insertBefore($elm_input);
-
-                    }
-                },
-                success:function (response) {
-                    $elm_this.addClass('btn-is-disabled');
-                    if (response.code === 1){
-                        $('.loader').remove();
-                        var xhtml = `<div class="alert alert-info alert-dismissible fade in" role="alert">
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
-                                    </button>
-                                    <strong>${response.msg}</strong>
-                                </div>`;
-                        $(xhtml).insertBefore($elm_input);
-                        window.location.href='http://organice.test/notify.html';
-                    }
-                }
-
-            });
-        });
-    });
+    // $(document).on('click', function () {
+    //     $("#zvn-submit-phone").on("click", function () {
+    //         $.ajax({
+    //             type: "GET",
+    //             url: "{{ route() }}"
+    //         })
+    //     });
+    // });
 
     // Ajax Change Value Quantity
 	// $('.quantity-input').on('change', function() {
@@ -352,24 +360,31 @@
     
 })(jQuery);
 
-// Ajax Add to Cart
-function addItemToCart(productId, quantity) {
-    $.ajax({
-        type: 'POST',
-        url: '/cart/addItem',
-        data: {
-            product_id: productId ,
-            quantity: quantity,
-            _token: '{{ csrf_token() }}' // Include CSRF token
-        },
-        success: function (response) {
-            // Update the UI or perform any necessary actions
-            console.log('Item added to cart successfully');
-            alert('Item added to cart successfully!');
-        },
-        error: function (error) {
-            alert('Error adding item to cart!');
-            console.error('Error adding item to cart', error);
-        }
-    });
+function showNotify(element, message, type = "success") {
+	element.notify(message, {
+		position: "top center",
+		className: type,
+	})
 }
+
+// Ajax Add to Cart
+// function addItemToCart(productId, quantity) {
+//     $.ajax({
+//         type: 'POST',
+//         url: 'cart/addItem',
+//         data: {
+//             product_id: productId ,
+//             quantity: quantity,
+//             _token: '{{ csrf_token() }}' // Include CSRF token
+//         },
+//         success: function (response) {
+//             // Update the UI or perform any necessary actions
+//             console.log('Item added to cart successfully');
+//             alert('Item added to cart successfully!');
+//         },
+//         error: function (error) {
+//             alert('Error adding item to cart!');
+//             console.error('Error adding item to cart', error);
+//         }
+//     }); 
+// }

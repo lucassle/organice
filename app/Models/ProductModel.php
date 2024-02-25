@@ -49,7 +49,7 @@ class ProductModel extends AdminModel {
         }
 
         if ($option['task'] == "shop-list-items-feature") {
-            $query      = $this->select('p.id', 'p.name', 'p.category_id', 'c.name as category', 'p.thumb', 'p.price', 'p.sale_off')
+            $query      = $this->select('p.id', 'p.name', 'p.category_id', 'c.name as category', 'p.thumb', 'p.price', 'p.sale_off', 'p.quantity')
                               ->leftJoin('category_product as c', 'p.category_id', '=', 'c.id')
                               ->where('p.status', '=', 'active')
                               ->where('p.type', 'feature')
@@ -148,6 +148,15 @@ class ProductModel extends AdminModel {
                             ->leftJoin('category_product as c', 'p.category_id', '=', 'c.id')
                             ->where('p.id', $arrParam['product_id'])
                             ->where('p.status', '=', 'active')->first();
+            if($result){
+                $result = $result->toArray();
+            }
+        }
+
+        if ($option['task'] == 'cart-items') {
+            $result = self::select('id', 'name', 'thumb', 'price', 'sale_off')
+                            ->where('id', $arrParam['id'])
+                            ->where('status', '=', 'active')->first();
             if($result){
                 $result = $result->toArray();
             }

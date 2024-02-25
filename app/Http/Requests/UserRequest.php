@@ -43,7 +43,7 @@ class UserRequest extends FormRequest {
                 $condStatus         = "bail|required|in:active,inactive";
                 $condLevel          = "bail|required|in:admin,member";
                 $condPassword       = "bail|required|between:6,32|confirmed";
-                $condAvatar         = 'bail|required|image|max:1000';
+                $condAvatar         = "bail|required|image|max:1000";
                 break;
             case 'edit-info':
                 $condUsername       = "bail|required|between:4,100|unique:$this->table,username,$this->id";

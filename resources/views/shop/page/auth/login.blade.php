@@ -4,7 +4,7 @@
         use App\Helpers\Form as FormTemplate;
     @endphp
     <div class="brand">
-        <a href="{{ route("home") }}"><img src="{{ asset("shop/img/logo.png") }}"></a>
+        <a href="{{ route('home') }}"><img src="{{ asset("shop/img/logo.png") }}"></a>
     </div>
     <div class="card fat">
         <div class="card-body">
@@ -38,7 +38,11 @@
                     </button>
                 </div>
                 <div class="margin-top20 text-center">
-                    Don't have an account? <a href="register.html">Create One</a>
+                    Don't have an account? <a href="{{ route('register') }}">Create One</a>
+                    <br>
+                </div>
+                <div class="text-center">
+                    Or <a href="{{ route('store') }}">Back to store</a>
                 </div>
                 {!! Form::close() !!}
         </div>

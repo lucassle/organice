@@ -3,38 +3,38 @@
     use App\Helpers\Form as FormTemplate;
     use App\Helpers\Template;
 
-    echo '<pre style="color: red;">';
-    print_r(Cart::content()->toArray());
-    echo '</pre>';
+    // echo '<pre style="color: red;">';
+    // print_r(Cart::content()->toArray());
+    // echo '</pre>';
     $inputHiddenID      = Form::hidden('id', '');
     // $inputHiddenID      = Form::hidden('id', $items['id']);
     $elements   = [
         [
             'label'     => Form::label('fullname', 'Full Name'),
-            'element'   => Form::text('fullname', '')
+            'element'   => Form::text('fullname', '', ['placeholder' => 'Enter your name'])
         ],
         [
             'label'     => Form::label('country', 'Country'),
-            'element'   => Form::text('country', '', ['placeholder' => 'Choose from dropdown list'])
+            'element'   => Form::text('country', '', ['placeholder' => 'Enter your country'])
         ],
         [
             'label'     => Form::label('address', 'Address'),
-            'element'   => Form::text('address', '')
+            'element'   => Form::text('address', '', ['placeholder' => 'Enter your address line'])
         ],
         [
             'label'     => Form::label('phone', 'Phone Number'),
-            'element'   => Form::text('phone', '')
+            'element'   => Form::text('phone', '', ['placeholder' => 'ex: 123456789, ...'])
         ],
         [
             'label'     => Form::label('email', 'Email'),
-            'element'   => Form::text('email', '')
+            'element'   => Form::text('email', '', ['placeholder' => 'ex: a.vn@gmail.com'])
         ],
         [
             'label'     => Form::label('note', 'Note'),
-            'element'   => Form::text('note', '')
+            'element'   => Form::text('note', '', ['placeholder' => 'Please take a note for us'])
         ],
         [
-            'element'   => $inputHiddenID . Form::submit('CHECKOUT', ['class' => 'btn btn-success']),
+            'element'   => $inputHiddenID . Form::submit('CHECKOUT', ['class' => 'checkout__btn']),
             'type'      => "btn-submit"
         ]
     ];
@@ -68,14 +68,18 @@
         <div class="checkout__form">
             <h4>Billing Details</h4>
             @include('shop.templates.success_notify')
-            {!! Form::open([
-                'id'        => 'form1',
-                'url'       => route("$controllerName/checkout"),
-                'class'     => 'form-horizontal form-label-left',
-                'enctype'   => 'multipart/form-data'
-            ]) !!}
-                {!! FormTemplate::showCheckout($elements) !!}
-            {!! Form::close() !!}
+            <div class="row">
+                <div class="col-lg-8 col-md-6">
+                    {!! Form::open([
+                        'id'        => 'form1',
+                        'url'       => route("$controllerName/checkout"),
+                        'class'     => 'form-horizontal form-label-left',
+                        'enctype'   => 'multipart/form-data'
+                    ]) !!}
+                        {!! FormTemplate::showCheckout($elements) !!}
+                    {!! Form::close() !!}
+                </div>
+            </form>
             {{-- <form action="#" method="post">
                 @csrf
                 <div class="row">
@@ -141,7 +145,7 @@
                             <input type="text"
                                 placeholder="Notes about your order, e.g. special notes for delivery.">
                         </div>
-                    </div>
+                    </div> --}}
                     
                     <div class="col-lg-4 col-md-6">
                         <div class="checkout__order">
@@ -171,12 +175,12 @@
                                     <span class="checkmark"></span>
                                 </label>
                             </div>
-                            @if (!empty(Cart::content()))
+                            {{-- @if (!empty(Cart::content()))
                                 <button type="submit" class="site-btn">PLACE ORDER</button>
-                            @endif
+                            @endif --}}
                         </div>
                     </div>
-                </div>
+                {{-- </div>
             </form> --}}
         </div>
     </div>

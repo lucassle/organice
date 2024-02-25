@@ -77,3 +77,8 @@ body.my-login-page {
 	background-color: #7fad39;
 	border-color: #7fad39;
 }
+
+.img-login {
+	height: 180px;
+	margin-bottom: 20px;
+}

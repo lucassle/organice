@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\ProductModel;
 use App\Models\CouponModel;
 use Gloudemans\Shoppingcart\Facades\Cart;
-use Str;
+use Illuminate\Support\Str;
  
 class CartController extends Controller {
     private $pathViewController     = 'shop.page.cart.';
@@ -29,30 +29,20 @@ class CartController extends Controller {
         ]);
     }
     public function addItem(Request $request) {
-        // if ($request->method() == 'POST') {
-        //     $arrParam       = $request->all();
-        //     $id             = $request->id;
-        //     $cart           = session()->get('cart');
-        //     $productModel   = new ProductModel();
-        //     // $productItems   = ProductModel::findOrFail($id);
-        //     $productItems   = $productModel->getItems($arrParam, ['task' => 'get-items']);
-        //     if (isset($cart[$id])) {
-        //         $cart[$id]['quantity'] += 1;
-        //         $cart[$id]['total']     = number_format($cart[$id]['quantity'] * $productItems->price, 2, '.', '');
-        //     } else {
-        //         $cart[$id]  = [
-        //             'name'      => $productItems->name,
-        //             'quantity'  => 1,
-        //             'price'     => $productItems->price,
-        //             'thumb'     => $productItems->thumb,
-        //             'total'     => $productItems->price,
-        //         ];
-        //     }
-        //     session()->put('cart', $cart);
-        //     // session()->forget('cart');
-        //     // session()->flush();
-        //     return redirect()->route('store')->with('success_notify', 'Added to Cart!');
-        // }
+        $arrParam       = $request->all();
+        $productModel   = new ProductModel();
+        $product        = $productModel->getItems($arrParam, ['task' => 'cart-items']);
+        Cart::add($arrParam['id'],
+                  $product['name'],
+                  1,
+                  $product['price'],
+                  ['thumb' => $product['thumb']]);
+
+        return response()->json(['message', 'Item added to cart successfully!!!']);
+        // return redirect()->route('store')->with('message', 'State saved correctly!!!');
+    }
+
+    public function addItemToCart(Request $request) {
         $arrParam       = $request->all();
         $productModel   = new ProductModel();
         $product        = $productModel->getItems($arrParam, ['task' => 'shop-get-items']);
@@ -62,16 +52,26 @@ class CartController extends Controller {
                   $product['price'],
                   ['thumb' => $product['thumb']]);
 
-        return response()->json(['success' => true]);
+        // return response()->json();
+        return redirect()->route('product/index', ['product_name' => Str::slug($product['name']), 'product_id' => $request->input('product_id')])->with('message', 'Item added to cart successfully!!!');
     }
 
-    public function remove(Request $request)
-    {   
+    public function remove(Request $request) {   
         $arrParam   = $request->all();
-        // $id = $request->id();
-        // Cart::remove($id);
-        // session()->flash('success_notify', 'Item has been removed!');
-        // return redirect()->route('cart')->with('success_notify', 'Item has been removed');
+        Cart::remove($arrParam['rowId']);
+        return redirect()->route('cart')->with('message', 'Item removed from cart successfully');
+    }
+
+    public function discount(Request $request) {
+        $discountCode = $request->input('discount_code');
+        $code = CouponModel::where('code', $discountCode)->first();
+        
+        if ($code) {
+            session()->put('discount_code', $discountCode);
+            return redirect()->back()->with('success', 'Discount code applied successfully');
+        } else {
+            return redirect()->back()->with('error', 'Invalid discount code');
+        }
     }
 
 }

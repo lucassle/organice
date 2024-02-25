@@ -4,21 +4,21 @@ namespace App\Models;
 
 use App\Models\AdminModel;
 use App\Helpers\Template;
+use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Support\Facades\DB;
 
-class CouponModel extends AdminModel {
-    // use HasFactory;
+class CartModel extends AdminModel {
     public function __construct() {
-        $this->table                = 'coupon';
-        $this->folderUpload         = 'coupon';
-        $this->fieldSearchAccepted  = ['id', 'code'];
-        $this->crudNotAccepted      = ['_token', 'datepicker-coupon', 'code_edit'];
+        $this->table                = 'cart';
+        $this->fieldSearchAccepted  = ['key_value'];
+        $this->crudNotAccepted      = ['_token'];
+        $this->timestamps           = false;
     }
 
     public function listItems($arrParam = null, $option = null) {
         $result     = null;
         if ($option['task'] == "admin-list-items") {
-            $query     = $this->select('id', 'code', 'type', 'value', 'status', 'start_time', 'end_time', 'start_price', 'end_price', 'total', 'total_use');
+            $query     = $this->select('id', 'username', 'fullname', 'email', 'level', 'avatar', 'status', 'created', 'created_by', 'modified', 'modified_by');
             if ($arrParam['filter']['status'] !== "all") {
                 $query->where('status', '=', $arrParam['filter']['status']);
             }
@@ -37,20 +37,7 @@ class CouponModel extends AdminModel {
             $result     = $query->orderBy('id', 'desc')
                                 ->paginate($arrParam['pagination']['totalItemPerPage']);
         }
-
-        if ($option['task'] == "admin-list-items-for-product") {
-            $query      = $this->select('id', 'name', 'ordering')
-                                ->where('status', '=', 'active')
-                                ->orderBy('ordering', 'desc');
-            $result     = $query->get()->toArray();
-        }
-
         
-        if ($option['task'] == "shop-list-items") {
-            $query      = $this->select('id', 'code', 'type', 'value', 'start_time', 'end_time', 'start_price', 'end_price', 'total')
-                                ->where('status', '=', 'active');
-            $result     = $query->get()->toArray();
-        }
         return $result;
     }
 
@@ -82,9 +69,25 @@ class CouponModel extends AdminModel {
     }
 
     public function getItems($arrParam = null, $option = null) {
-        $result     = '';
-        if ($option['task'] == 'get-items') {
-            $result = self::select('id', 'code', 'type', 'value', 'status', 'start_time', 'end_time', 'start_price', 'end_price', 'total', 'total_use')->where('id', $arrParam['id'])->first();
+        $result     = null;
+        if ($option['task'] == 'general') {
+            $items = $this->select('value')->where('key_value', 'setting-general')->firstOrFail()->toArray();
+            $result = json_decode($items['value'], true);
+        }
+
+        if ($option['task'] == 'social') {
+            $items = $this->select('value')->where('key_value', 'setting-social')->firstOrFail()->toArray();
+            $result = json_decode($items['value'], true);
+        }
+
+        if ($option['task'] == 'email-account') {
+            $items = $this->select('value')->where('key_value', 'setting-email-account')->firstOrFail()->toArray();
+            $result = json_decode($items['value'], true);
+        }
+
+        if ($option['task'] == 'email-bcc') {
+            $items = $this->select('value')->where('key_value', 'setting-email-bcc')->firstOrFail()->toArray();
+            $result = json_decode($items['value'], true);
         }
 
         return $result;
@@ -92,34 +95,29 @@ class CouponModel extends AdminModel {
 
     public function saveItems($arrParam = null, $option = null) {
         $result = '';
-        if ($option['task'] == "change-status") {
-            $status = ($arrParam['status'] == 'active') ? 'inactive' : 'active';
-            $modifiedBy = session("userInfo")["username"];
-            $modified   = date('Y-m-d H:i:s');
-            self::where('id', $arrParam['id'])
-                ->update(['status' => $status, 'modified_by' => $modifiedBy, 'modified' => $modified]);
-            $result = [
-                'id'        => $arrParam["id"],
-                'modified'  => Template::showItemHistory($modifiedBy, $modified),
-            ];
+        if ($option['task'] == "add-items") {
+            $cart                       = Cart::content()->toArray();
+            // echo '<pre style="color: red;">';
+            // print_r($cart);
+            // echo '</pre>';
+            // die('Function is called');
+            $arrParam['time']           = date('Y-m-d');
+            $arrParam['status']         = 'confirming';
+            $arrParam['username']       = session('userInfo')['username'];
+            // $arrParam['product']        = json_encode($cart['name'] . '*' . $cart['qty'], JSON_UNESCAPED_UNICODE);
+            // $arrParam['total_price']    = $cart['subtotal'] + $cart['tax'];
+            $arrParam['payment']        = 'COD';
+
+            $result = self::insert($this->prepareParams($arrParam));
         }
 
-        if ($option['task'] == "add-item") {
-            $arrParam['created_by']     = session("userInfo")["username"];
-            $arrParam['created']        = date('Y-m-d H:i:s');
-            self::insert($this->prepareParams($arrParam));
-        }
-
-        if ($option['task'] == "edit-item") {
-            $arrParam['modified_by']    = session("userInfo")["username"];
-            $arrParam['modified']       = date('Y-m-d H:i:s');
-            self::where('id', $arrParam['id'])->update($this->prepareParams($arrParam));
-        }
         return $result;
     }
 
     public function deleteItems($arrParam = null, $option = null) {
         if ($option['task'] == "delete-item") {
+            $items  = self::getItems($arrParam, ['task' => 'get-avatar']);
+            $this->deleteThumb($items['avatar']);
             self::where('id', $arrParam['id'])->delete();
         }
     }

@@ -34,7 +34,7 @@
     </div>
 </section>
 <!-- Breadcrumb Section End -->
-
+@include('shop.templates.message')
 <!-- Product Details Section Begin -->
 <section class="product-details spad">
     <div class="container">
@@ -87,7 +87,7 @@
                             <button type="submit" class="primary-btn">ADD TO CARD</button>
                         </form>
                     @else
-                        <span>Sorry! Out of Stock! </span>
+                        <span>Sorry! This item is out of stock! </span>
                     @endif
                     
                     <a href="#" class="heart-icon"><span class="icon_heart_alt"></span></a>

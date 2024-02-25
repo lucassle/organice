@@ -48,7 +48,7 @@ Route::group(['prefix' => $prefixFrontend, 'namespace' => 'Shop'], function () {
                 ->where('blog_id',   '[0-9]+');
     });
 
-    // ============================= ARTICLE =============================
+    // ============================= PRODUCTS =============================
     $prefix                 = 'product';
     $controllerName         = 'product';
     Route::group(['prefix' => $prefix], function () use ($controllerName) {
@@ -78,24 +78,36 @@ Route::group(['prefix' => $prefixFrontend, 'namespace' => 'Shop'], function () {
         Route::post('/post-contact',    ['as' => "$controllerName/post_contact", 'uses' => $controller . 'postContact']);
     });
 
+    // ============================= RECALL =============================
+    $prefix                 = 'recall';
+    $controllerName         = 'recall';
+    Route::group(['prefix' => $prefix], function () use ($controllerName) {
+        $controller         = ucfirst($controllerName) . 'Controller@';
+        Route::get('/',                 ['as' => "$controllerName/index",       'uses' => $controller . 'index']);
+        Route::post('/get-phone',       ['as' => "$controllerName/getPhone",   'uses' => $controller . 'getPhone']);
+    });
+
     // ============================= CART =============================
     $prefix                 = 'cart';
     $controllerName         = 'cart';
-    Route::group(['prefix' => $prefix, 'middleware' => ['permission.admin']], function () use ($controllerName) {
+    Route::group(['prefix' => $prefix], function () use ($controllerName) {
         $controller         = ucfirst($controllerName) . 'Controller@';
         Route::get('/',                 ['as' => "$controllerName",         'uses' => $controller . 'index']);
         Route::get('/remove/{rowId}',   ['as' => "$controllerName/remove",  'uses' => $controller . 'remove'])->where('rowId', '[0-9]+');
-        Route::post('/addItem',     ['as' => "$controllerName/addItem", 'uses' => $controller . 'addItem']);
+        // Route::post('/add-to-cart',     ['as' => "$controllerName/addItem", 'uses' => $controller . 'addItem']);
+        Route::post('/add-to-cart',     ['as' => "$controllerName/addItemToCart", 'uses' => $controller . 'addItemToCart']);
+        Route::delete('/delete/{id}',   ['as' => "$controllerName/remove", 'uses' => $controller . 'remove']);
         Route::post('/discount',        ['as' => "$controllerName/discount",'uses' => $controller . 'discount']);
     });
 
     // ============================= CHECKOUT =============================
     $prefix                 = 'checkout';
     $controllerName         = 'checkout';
-    Route::group(['prefix' => $prefix, 'middleware' => ['permission.admin']], function () use ($controllerName) {
+    Route::group(['prefix' => $prefix], function () use ($controllerName) {
         $controller         = ucfirst($controllerName) . 'Controller@';
         Route::get('/',                     ['as' => "$controllerName",             'uses' => $controller . 'index']);
-        Route::post('/thanks-for-shopping', ['as' => "$controllerName/checkout",    'uses' => $controller . 'checkout']);
+        Route::post('/checkout',            ['as' => "$controllerName/checkout",    'uses' => $controller . 'checkout']);
+        Route::get('/thanks-for-shopping',  ['as' => "$controllerName/redirect",    'uses' => $controller . 'redirect']);
     });
 
     // ============================= LOGIN =============================
@@ -106,6 +118,16 @@ Route::group(['prefix' => $prefixFrontend, 'namespace' => 'Shop'], function () {
         Route::get('/login',                                    ['as' => $controllerName . '/login',    'uses' => $controller . 'login'])->middleware('check.login');
         Route::post('/postLogin',                               ['as' => $controllerName . '/postLogin','uses' => $controller . 'postLogin']);
         Route::get('/logout',                                   ['as' => $controllerName . '/logout',   'uses' => $controller . 'logout']);
+    });
+
+    // ============================= REGISTER =============================
+    $prefix                 = 'register';
+    $controllerName         = 'register';
+    Route::group(['prefix' => $prefix], function () use ($controllerName) {
+        $controller         = ucfirst($controllerName) . 'Controller@';
+        Route::get('/',                                 ['as' => $controllerName,                   'uses' => $controller . 'register']);
+        Route::get('/redirect',                         ['as' => $controllerName . '/redirect',     'uses' => $controller . 'redirect']);
+        Route::post('/postRegister',                    ['as' => $controllerName . '/postRegister', 'uses' => $controller . 'postRegister']);
     });
 
     // ============================= NOTIFY =============================

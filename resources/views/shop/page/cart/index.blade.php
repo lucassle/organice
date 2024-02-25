@@ -2,10 +2,6 @@
     use Illuminate\Support\Str;
     use Gloudemans\Shoppingcart\Facades\Cart;
     use App\Helpers\URL;
-
-    echo '<pre style="color: red;">';
-    print_r(Cart::content()->toArray());
-    echo '</pre>';
 @endphp
 
 @extends('shop.main')
@@ -33,6 +29,7 @@
 <!-- Shoping Cart Section Begin -->
 <section class="shoping-cart spad">
     <div class="container">
+        @include('shop.templates.message')
         <div class="row">
             <div class="col-lg-12">
                 <div class="shoping__cart__table">
@@ -68,7 +65,13 @@
                                         ${{ $item['subtotal'] }}
                                     </td>
                                     <td class="shoping__cart__item__close">
-                                        <a href="{{ URL::linkRemoveItem($item['rowId']) }}"><span class="icon_close"></span></a>
+                                        {{-- <a href="#"><span class="icon_close"></span></a> --}}
+                                        <form action="{{ route('cart/remove', $item['id']) }}" method="POST">
+                                            @csrf
+                                            <input type="hidden" name="rowId" value="{{ $item['rowId'] }}">
+                                            @method('DELETE')
+                                            <button type="submit">x</button>
+                                        </form>
                                     </td>
                                 </tr>
                                 @endforeach
@@ -91,7 +94,7 @@
                     <div class="shoping__discount">
                         <h5>Discount Codes</h5>
                         <form id="coupon-id" name="coupon" action="{{ route('cart/discount') }}" method="post">
-                            <input type="text" placeholder="Enter your coupon code" id="coupon-input">
+                            <input type="text" name="discount_code" placeholder="Enter your coupon code" id="coupon-input">
                             <button type="submit" id="coupon-btn" class="site-btn">APPLY COUPON</button>
                             {{-- <input type="button" id="check" value="check"> --}}
                         </form>

@@ -170,6 +170,17 @@ class UserModel extends AdminModel {
             $result     = self::where('id', $arrParam['id'])
                 ->update(['password' => $password]);
         }
+
+        if ($option['task'] == "add-new-user") {
+            $arrParam['created_by']     = $arrParam['username'];
+            $arrParam['created']        = date('Y-m-d');
+            $arrParam['password']       = md5($arrParam['password']);
+            $arrParam['level']          = 'member';
+            $arrParam['status']         = 'active';
+            $arrParam['avatar']         = $this->uploadThumb($arrParam['avatar']);
+
+            $result = self::insert($this->prepareParams($arrParam));
+        }
         return $result;
     }
 

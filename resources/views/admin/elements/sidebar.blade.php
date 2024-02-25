@@ -1,6 +1,6 @@
 <div class="left_col scroll-view">
     <div class="navbar nav_title" style="border: 0;">
-        <a href="{{ route('dashboard') }}" class="site_title"><i class="fa fa-paw"></i> <span>Gentelella Alela!</span></a>
+        <a href="{{ route('dashboard') }}" class="site_title"><img src="{{ asset("shop/img/logo.png") }}" alt="logo"></a>
     </div>
     <div class="clearfix"></div>
     <!-- menu profile quick info -->

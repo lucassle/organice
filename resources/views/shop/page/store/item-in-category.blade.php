@@ -134,7 +134,7 @@
                 </div>
                 <div class="row">
                     {{-- {!! $xhtmlStore !!} --}}
-                    {{-- @foreach ($itemInCategory['product'] as $item)
+                    @foreach ($itemInCategory['product'] as $item)
                         @if ($item['sale_off'] > 0)
                             <div class="col-lg-4">
                                 <div class="product__discount__item">
@@ -187,7 +187,7 @@
                                 </div>
                             </div>
                         @endif
-                    @endforeach --}}
+                    @endforeach
                 </div>
                 @if (count($itemInCategory['product']) > 9)
                     <div class="product__pagination">

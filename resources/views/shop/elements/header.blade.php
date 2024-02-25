@@ -45,7 +45,8 @@
     };
 
     if (session('userInfo')) {
-        $xhtmlUser  = sprintf('<a href="%s"><i class="fa %s"></i> %s</a>', route('auth/logout'), 'fa-arrow-right-from-bracket','Logout');
+        // $xhtmlUser  = sprintf('<a href="%s"><i class="fa %s"></i> %s</a>', route('auth/logout'), 'fa-arrow-right-from-bracket','Logout');
+        $xhtmlUser  = sprintf('<a href="%s"><img src="%s" alt="%s"> %s</a>', route('auth/logout'), asset("image/user/" . session('userInfo')['avatar']), session('userInfo')['fullname'],'Logout');
         if (session('userInfo')['level'] == 'admin') {
             $xhtmlMenu      .= sprintf('<li><a href="%s" target="_blank">Admin Panel</a></li>', route('dashboard'));
         }
@@ -94,7 +95,6 @@
                 <div class="col-lg-6 col-md-6">
                     <div class="header__top__right">
                         <div class="header__top__right__social">
-
                             <button class="share__link share__link--facebook"><i class="fa-brands fa-facebook"></i></button>
                             <button class="share__link share__link--twitter"><i class="fa-brands fa-twitter"></i></button>
                             <button class="share__link share__link--linkedin"><i class="fa-brands fa-linkedin"></i></button>

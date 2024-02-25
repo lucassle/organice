@@ -84,10 +84,17 @@
                                             <p>Call us now</p>
                                             <a href="tel:+6511188888" class="thm-btn zvn-chat"><i class="fa fa-phone" aria-hidden="true"></i> +65 11.188.888</a>
                                             <p>Or leave your phone number to receive a call from Organice</p>
-                                            <form action="{{ route('home/getphone') }}" name="getphone" id="getphone" method="post">
+                                            {{-- <form action="{{ route('home/getphone') }}" name="getphone" id="getphone" method="post">
                                                 <input type="text" name="phone_customer" placeholder="Your phone number">
                                                 <br>
+                                                <button type="submit" id="zvn-submit-phone" class="thm-btn zvn-call">Request a callback</button>
                                                 <a href="javascript::void()" class="thm-btn zvn-call zvn-submit-phone"> Request a callback</a>
+                                            </form> --}}
+                                            <form id="phoneNumberForm">
+                                                @csrf
+                                                <input type="text" id="phoneNumber" name="phoneNumber" placeholder="Your phone number" required>
+                                                <br>
+                                                <button type="submit" class="thm-btn btn-call">Request a callback</button>
                                             </form>
                                         </div>
                                     </div>
