@@ -34,11 +34,19 @@ class CheckoutController extends Controller {
         };
         $cartModel     = new CartModel();
         $cartModel->saveItems($arrParam, ['task' => 'add-items']);
+        Cart::destroy();
         return redirect()->route($this->controllerName . '/redirect');
     }
 
     public function redirect(Request $request) {
         return view($this->pathViewController . 'redirect', [
+        ]);
+    }
+    public function detail(Request $request) {
+        $arrParam       = $request->all();
+        $cartModel     = new CartModel();
+        $cartModel->getItems($arrParam, ['task' => '']);
+        return view($this->pathViewController . 'detail', [
         ]);
     }
 

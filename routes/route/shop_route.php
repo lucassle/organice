@@ -93,10 +93,10 @@ Route::group(['prefix' => $prefixFrontend, 'namespace' => 'Shop'], function () {
     Route::group(['prefix' => $prefix], function () use ($controllerName) {
         $controller         = ucfirst($controllerName) . 'Controller@';
         Route::get('/',                 ['as' => "$controllerName",         'uses' => $controller . 'index']);
-        Route::get('/remove/{rowId}',   ['as' => "$controllerName/remove",  'uses' => $controller . 'remove'])->where('rowId', '[0-9]+');
-        // Route::post('/add-to-cart',     ['as' => "$controllerName/addItem", 'uses' => $controller . 'addItem']);
+        // Route::get('/remove/{rowId}',   ['as' => "$controllerName/remove",  'uses' => $controller . 'remove'])->where('rowId', '[0-9]+');
+        // Route::post('/add-to-cart',  ['as' => "$controllerName/addItem", 'uses' => $controller . 'addItem']);
         Route::post('/add-to-cart',     ['as' => "$controllerName/addItemToCart", 'uses' => $controller . 'addItemToCart']);
-        Route::delete('/delete/{id}',   ['as' => "$controllerName/remove", 'uses' => $controller . 'remove']);
+        Route::get('/remove',           ['as' => "$controllerName/remove", 'uses' => $controller . 'remove']);
         Route::post('/discount',        ['as' => "$controllerName/discount",'uses' => $controller . 'discount']);
     });
 
@@ -108,6 +108,7 @@ Route::group(['prefix' => $prefixFrontend, 'namespace' => 'Shop'], function () {
         Route::get('/',                     ['as' => "$controllerName",             'uses' => $controller . 'index']);
         Route::post('/checkout',            ['as' => "$controllerName/checkout",    'uses' => $controller . 'checkout']);
         Route::get('/thanks-for-shopping',  ['as' => "$controllerName/redirect",    'uses' => $controller . 'redirect']);
+        Route::get('/detail',               ['as' => "$controllerName/detail",      'uses' => $controller . 'detail']);
     });
 
     // ============================= LOGIN =============================

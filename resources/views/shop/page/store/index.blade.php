@@ -132,12 +132,13 @@
                                                     <li><a href="#"><i class="fa fa-retweet"></i></a></li>
                                                     @if ($item['quantity'] != 0)
                                                         <li>
-                                                            {{-- <form action="#" method="post"> --}}
-                                                                {{-- @csrf --}}
-                                                                {{-- <input type="hidden" name="product_id" value="{{ $item['id'] }}"> --}}
+                                                            <form action="{{ URL::linkAddToCart($item['id']) }}" method="post">
+                                                                @csrf
+                                                                <input type="hidden" name="product_id" value="{{ $item['id'] }}">
                                                                 <input type="hidden" name="quantities" value="1">
-                                                                <button onclick="addItemToCart({{ $item['id'] }})"><i class="fa fa-shopping-cart"></i></button>
-                                                            {{-- </form> --}}
+                                                                <button type="submit"><i class="fa fa-shopping-cart"></i></button>
+                                                                {{-- <button class="add-to-cart" data-product-id="{{ $value['id'] }}"><i class="fa fa-shopping-cart"></i></button> --}}
+                                                            </form>
                                                         </li>
                                                     @endif
                                                 </ul>

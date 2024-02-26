@@ -33,7 +33,8 @@
                 <div class="main_content">
                     <img src="{{ asset('shop/img/thanks.jpg') }}" alt="Thanks-for-shopping"  style="margin:auto;margin-top:20px">
                     <h3>Thanks for shopping!</h3>
-                    <a href="{{ route('home') }}">Click here to go back</a>
+                    <a href="{{ route('home') }}" class="primary-btn cart-btn cart-btn-left">Back to store</a>
+                    <a href="{{ route('checkout/detail') }}" class="primary-btn cart-btn cart-btn-right">Check your order</a>
                 </div>
             </div>
         </div>

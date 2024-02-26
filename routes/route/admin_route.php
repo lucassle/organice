@@ -214,6 +214,16 @@ Route::group(['prefix' => $prefixAdmin, 'namespace' => 'Admin', 'middleware' => 
     });
 
     // // ============================= GALLERY =============================
+    $prefix                 = 'order';
+    $controllerName         = 'order';
+    Route::group(['prefix' => $prefix], function () use ($controllerName) {
+        $controller         = ucfirst($controllerName) . 'Controller@';
+        Route::get('/',                             ['as' => $controllerName,                   'uses' => $controller . 'index']);
+        Route::get('change-status/{id}',   ['as' => $controllerName . '/shipmentStatus',       'uses' => $controller . 'shipmentStatus']) ->where('id', '[0-9]+');
+        Route::get('delete/{id}',                   ['as' => $controllerName . '/delete',       'uses' => $controller . 'delete']) ->where('id', '[0-9]+');
+    });
+
+    // // ============================= GALLERY =============================
     $prefix                 = 'video';
     $controllerName         = 'video';
     Route::group(['prefix' => $prefix], function () use ($controllerName) {

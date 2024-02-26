@@ -15,6 +15,7 @@ use App\Models\CategoryArticleModel;
 use App\Models\AttributeModel;
 use App\Models\CouponModel;
 use App\Models\ShippingCostModel;
+use App\Models\OrderModel;
  
 class DashboardController extends AdminController {
     protected $pathViewController     = 'admin.page.dashboard.';
@@ -39,6 +40,7 @@ class DashboardController extends AdminController {
         $attributeModel         = new AttributeModel();
         $couponModel            = new CouponModel();
         $shippingCostModel      = new ShippingCostModel();
+        $orderModel             = new OrderModel();
         $totalBanner            = $bannerModel->countItems(null, ['task' => 'count-by-items']);
         $totalCategoryProduct   = $categoryProductModel->countItems(null, ['task' => 'count-by-items']);
         $totalProduct           = $productModel->countItems(null, ['task' => 'count-by-items']);
@@ -51,6 +53,7 @@ class DashboardController extends AdminController {
         $totalAttribute         = $attributeModel->countItems(null, ['task' => 'count-by-items']);
         $totalCoupon            = $couponModel->countItems(null, ['task' => 'count-by-items']);
         $totalShippingCost      = $shippingCostModel->countItems(null, ['task' => 'count-by-items']);
+        $totalOrder             = $orderModel->countItems(null, ['task' => 'count-by-items']);
         return view($this->pathViewController . 'index', [
             'controllerName'        => $this->controllerName,
             'totalBanner'           => $totalBanner,
@@ -65,6 +68,7 @@ class DashboardController extends AdminController {
             'totalAttribute'        => $totalAttribute,
             'totalCoupon'           => $totalCoupon,
             'totalShippingCost'     => $totalShippingCost,
+            'totalOrder'            => $totalOrder,
         ]);
 
     }

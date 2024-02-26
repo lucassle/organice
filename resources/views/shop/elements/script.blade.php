@@ -8,4 +8,5 @@
 <script src="{{ asset('admin/js/notifyjs/notify.min.js') }}"></script>
 <script src="{{ asset("shop/js/dropdown.js") }}"></script>
 <script src="{{ asset("vendor/laravel-filemanager/js/filemanager.min.js") }}"></script>
+<script src="{{ asset('shop/js/sweetalert2.js') }}"></script>
 <script src="{{ asset("shop/js/main.js") }}"></script>

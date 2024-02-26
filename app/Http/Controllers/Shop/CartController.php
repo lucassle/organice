@@ -57,7 +57,8 @@ class CartController extends Controller {
     }
 
     public function remove(Request $request) {   
-        $arrParam   = $request->all();
+        // $arrParam   = $request->all();
+        $arrParam['rowId']  = $request->rowId;
         Cart::remove($arrParam['rowId']);
         return redirect()->route('cart')->with('message', 'Item removed from cart successfully');
     }

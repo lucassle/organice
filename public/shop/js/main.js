@@ -285,6 +285,32 @@
         });
     });
 
+    //Ajax Delete
+	let $btnDelete = $(".btn-delete");
+    $btnDelete.on("click", function (e) {
+        e.preventDefault();
+        let url = $(this).attr("href");
+        console.log(url);
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!",
+        }).then((result) => {
+            if (result.isConfirmed) {
+				Swal.fire(
+					'Deleted!',
+					'Your file has been deleted.',
+					'success'
+					);
+                    window.location.href = url;
+            }
+        });
+    });
+
     $("#coupon-btn").on('click', function() {
         var coupon_id   = $("#coupon-id").val();
         $.ajax({

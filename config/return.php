@@ -48,13 +48,20 @@ return [
         ],
 
         'status'    => [
-            'all'       => ['name'  => 'All',       'class' => 'btn-primary'],
-            'active'    => ['name'  => 'Active',    'class' => 'btn-success'],
-            'inactive'  => ['name'  => 'Inactive',  'class' => 'btn-info'],
-            'block'     => ['name'  => 'Block',     'class' => 'btn-danger'],
-            'default'   => ['name'  => 'Default',   'class' => 'btn-danger'],
-            'waiting'   => ['name'  => 'Waiting',   'class' => 'btn-danger'],
-            'contacted' => ['name'  => 'Contacted', 'class' => 'btn-success']
+            'all'           => ['name'  => 'All',       'class' => 'btn-primary'],
+            'active'        => ['name'  => 'Active',    'class' => 'btn-success'],
+            'inactive'      => ['name'  => 'Inactive',  'class' => 'btn-info'],
+            'block'         => ['name'  => 'Block',     'class' => 'btn-danger'],
+            'default'       => ['name'  => 'Default',   'class' => 'btn-danger'],
+            'waiting'       => ['name'  => 'Waiting',   'class' => 'btn-danger'],
+            'contacted'     => ['name'  => 'Contacted', 'class' => 'btn-success'],
+        ],
+
+        'shipmentStatus' => [
+            'confirming'    => ['name'  => 'Confirming'],
+            'confirmed'     => ['name'  => 'Confirmed'],
+            'delivering'    => ['name'  => 'Delivering'],
+            'delivered'     => ['name'  => 'Delivered'],
         ],
 
         'is_home'   => [
@@ -96,6 +103,10 @@ return [
             'value'         => ['name'  => 'Search by Value'],
             'type'          => ['name'  => 'Search by Type'],
             'province'      => ['name'  => 'Search by Province'],
+            'country'       => ['name'  => 'Search by Country'],
+            'note'          => ['name'  => 'Search by Note'],
+            'address'       => ['name'  => 'Search by Address'],
+            'payment'       => ['name'  => 'Search by Payment'],
         ],
 
         'button'    => [
@@ -130,6 +141,7 @@ return [
             'attribute'         => ['all', 'name'],
             'coupon'            => ['all', 'code', 'value', 'type'],
             'shippingCost'      => ['all', 'province'],
+            'order'             => ['all', 'fullname', 'username', 'address', 'country', 'phone', 'email', 'note', 'payment']
         ],
 
         'button'    => [
@@ -148,6 +160,7 @@ return [
             'shippingCost'      => ['edit', 'delete'],
             'recall'            => ['delete'],
             'contact'           => ['delete'],
+            'order'             => ['delete'],
         ]
     ],
 

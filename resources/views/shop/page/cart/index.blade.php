@@ -66,11 +66,11 @@
                                     </td>
                                     <td class="shoping__cart__item__close">
                                         {{-- <a href="#"><span class="icon_close"></span></a> --}}
-                                        <form action="{{ route('cart/remove', $item['id']) }}" method="POST">
+                                        <form action="{{ route('cart/remove', $item['id']) }}" method="DELETE">
                                             @csrf
                                             <input type="hidden" name="rowId" value="{{ $item['rowId'] }}">
-                                            @method('DELETE')
-                                            <button type="submit">x</button>
+                                            {{-- @method('DELETE') --}}
+                                            <a href="{{ route('cart/remove') }}" type="submit" class="btn-delete">x</a>
                                         </form>
                                     </td>
                                 </tr>
@@ -109,7 +109,12 @@
                         <li>Tax <span>${{ Cart::tax() }}</span></li>
                         <li>Total <span>${{ Cart::total() }}</span></li>
                     </ul>
-                    <a href="{{ route('checkout') }}" class="primary-btn">PROCEED TO CHECKOUT</a>
+                    @if (Cart::count() > 0)
+                        <a href="{{ route('checkout') }}" class="primary-btn">PROCEED TO CHECKOUT</a>
+                    @else
+                        <a href="#" class="unaction-btn">PROCEED TO CHECKOUT</a>
+                    @endif
+                    {{-- <a href="{{ route('checkout') }}" class="primary-btn">PROCEED TO CHECKOUT</a> --}}
                 </div>
             </div>
         </div>

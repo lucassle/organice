@@ -46,6 +46,11 @@
                         <li><a href="{{ route('shippingCost') }}"><i class="fa fa-truck"></i> Shipping Cost</a></li>
                     </ul>
                 </li>
+                <li><a><i class="fa fa-truck"></i> Order Manager <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                        <li><a href="{{ route('order') }}"><i class="fa fa-truck"></i> Order</a></li>
+                    </ul>
+                </li>
                 <li><a><i class="fa fa-blog"></i> Blog Manager <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                         <li><a href="{{ route('article') }}"><i class="fa fa-blog"></i> Article</a></li>
