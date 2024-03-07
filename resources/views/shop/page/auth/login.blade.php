@@ -28,12 +28,12 @@
 
                 <div class="form-group">
                     <label>
-                        <input type="checkbox" name="remember"> Remember Me
+                        <input type="checkbox" name="remember" id="rememberMe" value="lsRememberMe"> Remember Me
                     </label>
                 </div>
 
                 <div class="form-group no-margin">
-                    <button type="submit" class="btn btn-login btn-block">
+                    <button type="submit" class="btn btn-login btn-block" onclick="lsRememberMe()">
                         Login
                     </button>
                 </div>

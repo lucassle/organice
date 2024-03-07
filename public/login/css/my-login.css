@@ -82,3 +82,37 @@ body.my-login-page {
 	height: 180px;
 	margin-bottom: 20px;
 }
+
+/*--------------------------------- Responsive Media Quaries -----------------------------*/
+
+/* @media only screen and (min-width: 1200px) {
+	.container {
+		max-width: 1170px;
+	}
+} */
+
+/* Medium Device = 1200px */
+/* 
+@media only screen and (min-width: 992px) and (max-width: 1199px) {
+	.card-body {
+		width: 490px;
+	}
+	.card-body input {
+		width: 340px;
+	}
+	.card-body .btn-sm {
+		right: 0px;
+	}
+	.footer {
+		padding-left: 20px;
+	}
+	.product__details__tab .nav-tabs:before {
+		width: 265px;
+	}
+	.product__details__tab .nav-tabs:after {
+		width: 265px;
+	}
+	.shoping__discount form input {
+		width: 240px;
+	}
+} */

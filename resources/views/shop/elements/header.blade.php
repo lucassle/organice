@@ -147,7 +147,6 @@
             <div class="col-lg-3">
                 <div class="header__cart">
                     <ul>
-                        <li><a href="#"><i class="fa fa-heart"></i> <span>0</span></a></li>
                         <li><a href="{{ route('cart') }}"><i class="fa fa-shopping-bag"></i> <span> {{ Cart::content()->count() }}</span></a></li>
                     </ul>
                     <div class="header__cart__price">item: <span>${{ Cart::subtotal() }}</span></div>

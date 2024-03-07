@@ -23,11 +23,12 @@
                     $message->subject($this->fromTitle, 'Notification of successful contact sending!');
 
                     $content    = sprintf('
-                    <p>Hello, %s,</p>
-                    <p>We have received your contact information and will respond as soon as possible!</p>
-                    <p>Thanks for your attention!</p>
-                    ', $data['name']);
-                    $message->setBody($content, 'text/html');
+                                            <p>Hello, %s,</p>
+                                            <p>We have received your contact information and will respond as soon as possible!</p>
+                                            <p>Thanks for your attention!</p>
+                                            ', $data['name']);
+                    // $message->setBody($content, 'text/html');
+                    $message->html($content);
                 });
                 return true;
             }

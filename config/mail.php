@@ -34,15 +34,26 @@ return [
     */
 
     'mailers' => [
+        // 'smtp' => [
+        //     'transport' => 'smtp',
+        //     'url' => env('MAIL_URL'),
+        //     // 'host' => env('MAIL_HOST', 'smtp.mailgun.org'),
+        //     'host' => 'smtp.gmail.com',
+        //     // 'port' => env('MAIL_PORT', 587),
+        //     'port' => 587,
+        //     // 'encryption' => env('MAIL_ENCRYPTION', 'tls'),
+        //     'encryption' => 'tls',
+        //     'username' => env('MAIL_USERNAME'),
+        //     'password' => env('MAIL_PASSWORD'),
+        //     'timeout' => null,
+        //     'local_domain' => env('MAIL_EHLO_DOMAIN'),
+        // ],
+
         'smtp' => [
             'transport' => 'smtp',
-            'url' => env('MAIL_URL'),
-            // 'host' => env('MAIL_HOST', 'smtp.mailgun.org'),
-            'host' => 'smtp.gmail.com',
-            // 'port' => env('MAIL_PORT', 587),
-            'port' => 587,
-            // 'encryption' => env('MAIL_ENCRYPTION', 'tls'),
-            'encryption' => 'tls',
+            'host' => env('MAIL_HOST', 'MAIL_HOST'),
+            'port' => env('MAIL_PORT', 'MAIL_PORT'),
+            'encryption' => env('MAIL_ENCRYPTION', 'tls'),
             'username' => env('MAIL_USERNAME'),
             'password' => env('MAIL_PASSWORD'),
             'timeout' => null,
