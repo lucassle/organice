@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 
 class AuthRequest extends FormRequest {
-    private $table  = 'auth';   
+    private $table  = 'user';   
     /**
      * Determine if the user is authorized to make this request.
      */

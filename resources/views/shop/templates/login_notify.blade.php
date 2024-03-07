@@ -1,10 +1,8 @@
 @if (session('login_notify'))
-    <div class="row">
-        <div class="col-md-12 col-sm-12 col-xs-12">
-            <div class="alert alert-success alert-dismissible fade in" role="alert">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">x</span></button>
-                <strong>{{ session('login_notify') }}</strong>
-            </div>
-        </div>
+    <div class="alert alert-danger">
+        <h3>Warning!</h3>
+        <ul>
+            <li>{{ session('login_notify') }}</li>
+        </ul>
     </div>
 @endif
