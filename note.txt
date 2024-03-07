@@ -1,0 +1,4 @@
+Graduation project of php/laravel course at Zendvn Programming Training Center
+- Template using:   Ogani-master (https://themewagon.com/themes/free-bootstrap-4-html5-responsive-ecommerce-website-template-ogani/),
+                    AdminLTE (https://adminlte.io/)
+
